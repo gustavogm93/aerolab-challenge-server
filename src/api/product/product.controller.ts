@@ -8,7 +8,7 @@ export class ProductController {
 
   @Get("/")
   async getProducts(
-  @Query('page') page:number = 0,
+  @Query('page') page:number = 1,
   @Query('limit') limit:number = 16,): Promise<Product[]> {
     return this.productService.getProducts(page,limit);
   }
