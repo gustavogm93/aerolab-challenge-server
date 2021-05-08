@@ -1,6 +1,6 @@
 import { Injectable, HttpService } from '@nestjs/common';
 import Axios, { AxiosRequestConfig } from 'axios'
-import { Product } from './dto/product.dto';
+import { Pagination, Product } from './dto/product.dto';
 
 
 @Injectable()
@@ -24,11 +24,7 @@ export class ProductService {
     return config;
   }
 
-  getPagination(array: any[], limit: number, page:number) {
-    return array.slice((page - 1) * limit, page * limit);
-  }
-
-  async getProducts(page:number, limit:number): Promise<Product[]> {
+  async getProducts(page:number, limit:number): Promise<Pagination<Product>> {
 
   const { data } = await this.aerolabMicroservice.get('products', this.getToken()).toPromise()
 
@@ -42,6 +38,21 @@ const { data } = await this.aerolabMicroservice.post('redeem', productId, this.g
 
 return data
 
+}
+
+getPagination(array: Product[], limit: number, page:number):Pagination<Product> {
+
+  const data = array.slice((page - 1) * limit, page * limit);
+
+  const pagination: Pagination<Product>  = {
+   data,
+   pagination : {currentPage: page,   
+   pages: Math.ceil(array.length / limit),
+   limit: data.length,
+  }
+
+}
+return pagination
 }
 
 }

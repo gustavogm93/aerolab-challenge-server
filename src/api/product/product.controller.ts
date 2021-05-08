@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
-import { Product } from './dto/product.dto';
+import { Pagination, Product } from './dto/product.dto';
 import { ProductService } from './product.service';
 
 @Controller('Product')
@@ -9,7 +9,7 @@ export class ProductController {
   @Get("/")
   async getProducts(
   @Query('page') page:number = 1,
-  @Query('limit') limit:number = 16,): Promise<Product[]> {
+  @Query('limit') limit:number = 16,): Promise<Pagination<Product>> {
     return this.productService.getProducts(page,limit);
   }
 

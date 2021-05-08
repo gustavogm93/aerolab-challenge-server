@@ -16,7 +16,7 @@ export class UserController {
   }
 
   @Get('/points')
-  addPoints(): Promise<number> {
+  addPoints(): Promise<Number> {
     return this.UserService.updatePoints();
   }
 
