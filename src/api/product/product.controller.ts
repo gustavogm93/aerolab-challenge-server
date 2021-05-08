@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { Product } from './dto/product.dto';
 import { ProductService } from './product.service';
 
@@ -13,9 +13,8 @@ export class ProductController {
     return this.productService.getProducts(page,limit);
   }
 
-  @Post("/:productId")
-  async redeem(
-    @Param('productId') productId: string,
+  @Post("/redeem")
+  async redeem(@Body() productId: string,
   ): Promise<string> {
     return this.productService.redeem(productId);
   }
