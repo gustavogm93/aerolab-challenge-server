@@ -38,11 +38,12 @@ export class UserService {
     return data;
   }
 
-  async addPoints(): Promise<string> {
-    const { data } = await this.aerolabMicroservice
+  async updatePoints(): Promise<number> {
+    const amount = 1000
+        await this.aerolabMicroservice
       .post('user/points', { amount: 1000 }, this.getToken())
       .toPromise();
 
-    return data;
+    return amount;
   }
 }

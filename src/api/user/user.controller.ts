@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get } from '@nestjs/common';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -16,8 +16,8 @@ export class UserController {
   }
 
   @Get('/points')
-  addPoints(): Promise<string> {
-    return this.UserService.addPoints();
+  addPoints(): Promise<number> {
+    return this.UserService.updatePoints();
   }
 
 
