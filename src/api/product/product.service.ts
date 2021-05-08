@@ -49,6 +49,7 @@ getPagination(array: Product[], limit: number, page:number):Pagination<Product> 
    pagination : {currentPage: page,   
    pages: Math.ceil(array.length / limit),
    limit: data.length,
+   total: array.length
   }
 
 }

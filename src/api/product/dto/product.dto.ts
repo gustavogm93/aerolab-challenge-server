@@ -13,6 +13,7 @@ export interface Pagination<T> {
     data: T[],
     pagination : {currentPage: number,    
     pages: number,
-    limit: number
+    limit: number,
+    total: number
     }
 }
