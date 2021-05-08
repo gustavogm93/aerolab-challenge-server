@@ -12,7 +12,7 @@ export class UserController {
 
   @Get('/history')
   getHistory(): Promise<string> {
-    return this.UserService.addPoints();
+    return this.UserService.getHistory();
   }
 
   @Get('/points')
