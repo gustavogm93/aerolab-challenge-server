@@ -1,25 +1,26 @@
-import { Body, Controller, Get } from '@nestjs/common';
+// eslint-disable-next-line prettier/prettier
+import {
+  Controller,
+  Get
+} from '@nestjs/common';
 import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly UserService: UserService) {}
+  constructor(private readonly userService: UserService) {}
 
   @Get('/me')
   getUser(): Promise<string> {
-    return this.UserService.getUser();
+    return this.userService.getUser();
   }
 
   @Get('/history')
   getHistory(): Promise<string> {
-    return this.UserService.getHistory();
+    return this.userService.getHistory();
   }
 
   @Get('/points')
-  addPoints(): Promise<Number> {
-    return this.UserService.updatePoints();
+  addPoints(): Promise<number> {
+    return this.userService.updatePoints();
   }
-
-
 }
- 

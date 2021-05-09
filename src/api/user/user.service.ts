@@ -1,22 +1,25 @@
-import { Injectable, HttpService } from '@nestjs/common'
-import Axios, { AxiosRequestConfig } from 'axios'
+import { Injectable, HttpService } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import Axios, { AxiosRequestConfig } from 'axios';
 
 @Injectable()
 export class UserService {
   aerolabMicroservice: HttpService;
+  token: string;
 
-  constructor() {
-    const aerolabMicroserviceUrl = 'https://coding-challenge-api.aerolab.co';
+  constructor(private readonly configService: ConfigService) {
+    const aerolabMicroserviceUrl = this.configService.get('baseUrl');
+    const token = this.configService.get('token');
+
     this.aerolabMicroservice = new HttpService(
       Axios.create({ baseURL: aerolabMicroserviceUrl }),
     );
+    this.token = token;
   }
 
   getToken(): AxiosRequestConfig {
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDkyMjNmNTc2NmZiNTAwMjRhYTg3YWMiLCJpYXQiOjE2MjAxOTAxOTd9.mCs42TgkSGhkFf_8JURMh1CUc2QH6wu-CcBxAnan1JU';
     const config: AxiosRequestConfig = {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${this.token}` },
     };
 
     return config;
@@ -39,9 +42,9 @@ export class UserService {
   }
 
   async updatePoints(): Promise<number> {
-    const amount = 1000
-        await this.aerolabMicroservice
-      .post('user/points', { amount: 1000 }, this.getToken())
+    const amount = 1000;
+    await this.aerolabMicroservice
+      .post('user/points', { amount: amount }, this.getToken())
       .toPromise();
 
     return amount;
